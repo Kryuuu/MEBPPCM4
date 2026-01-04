@@ -300,6 +300,22 @@ section {
     background-color: var(--bg-light);
 }
 
+.catalog-logo {
+    height: 100px;
+    width: auto;
+    margin-bottom: 1rem;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+@media(max-width: 768px) {
+    .catalog-logo {
+        height: auto;
+        width: 70%;
+        max-width: 250px;
+    }
+}
+
 .catalog-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
