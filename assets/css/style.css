@@ -310,9 +310,10 @@ section {
 
 @media(max-width: 768px) {
     .catalog-logo {
-        height: auto;
-        width: 70%;
-        max-width: 250px;
+        height: 60px;
+        /* Stricter height for mobile */
+        width: auto;
+        max-width: 100%;
     }
 }
 
