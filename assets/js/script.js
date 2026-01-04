@@ -61,4 +61,41 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+    // --- CUSTOM CURSOR LOGIC ---
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        const cursorDot = document.createElement('div');
+        cursorDot.classList.add('cursor-dot');
+
+        const cursorOutline = document.createElement('div');
+        cursorOutline.classList.add('cursor-outline');
+
+        document.body.appendChild(cursorDot);
+        document.body.appendChild(cursorOutline);
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            // Update Custom Cursor
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Smooth trailing animation for outline
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 400, fill: "forwards" });
+
+            // Update Background CSS Variables
+            document.documentElement.style.setProperty('--cursor-x', `${posX}px`);
+            document.documentElement.style.setProperty('--cursor-y', `${posY}px`);
+        });
+
+        // Hover scales
+        const interactive = document.querySelectorAll('a, button, .card, .product-card, .hamburger');
+        interactive.forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+    }
 });

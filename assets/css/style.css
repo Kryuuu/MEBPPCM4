@@ -41,6 +41,26 @@ body {
     font-family: var(--font-body);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
+    /* For background pseudo-element */
+}
+
+/* Background Spotlight Animation */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: radial-gradient(circle 600px at var(--cursor-x, 50%) var(--cursor-y, 50%),
+            rgba(212, 175, 55, 0.05),
+            /* Subtle Gold Glow */
+            transparent 50%);
+    pointer-events: none;
+    transition: background 0.1s;
+    /* Slight smooth update */
 }
 
 /* --- TYPOGRAPHY --- */
@@ -310,10 +330,61 @@ section {
 
 @media(max-width: 768px) {
     .catalog-logo {
+        height: auto !important;
+        width: auto !important;
+        max-width: 180px !important;
+        max-height: 80px !important;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* --- MOUSE FOLLOWER (Kece Badai) --- */
+@media (hover: hover) and (pointer: fine) {
+
+    .cursor-dot,
+    .cursor-outline {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 9999;
+        pointer-events: none;
+    }
+
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: var(--accent-gold);
+        box-shadow: 0 0 10px var(--accent-gold);
+    }
+
+    .cursor-outline {
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--accent-gold);
+        transition: width 0.2s, height 0.2s, background-color 0.2s;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    }
+
+    body:hover .cursor-outline {
+        opacity: 1;
+    }
+
+    /* Interactive State */
+    body.hovering .cursor-outline {
+        width: 60px;
         height: 60px;
-        /* Stricter height for mobile */
-        width: auto;
-        max-width: 100%;
+        background-color: rgba(212, 175, 55, 0.1);
+        border-color: var(--accent-gold);
+        mix-blend-mode: difference;
+    }
+
+    /* Hide default cursor */
+    * {
+        cursor: none !important;
     }
 }
 
